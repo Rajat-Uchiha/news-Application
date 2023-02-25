@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Navbar from "./Components/Navbar";
+import Allnews from "./Components/Allnews";
+import { useState } from "react";
+const App = () => {
+  const [RealData, setRealData] = useState([]);
+  const url =
+    "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=ffc861d61e28493b9ced3268d3333b2d";
 
-function App() {
+  const fetchData = () => {
+    fetch(url)
+      .then((r) => r.json())
+      .then((r) => {
+        setRealData(r.articles);
+      });
+  };
+  console.log(RealData);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="w-full h-full ">
+        <Navbar fetchData={fetchData} />
+        <Allnews />
+      </div>
+      ;
+    </>
   );
-}
+};
 
 export default App;
